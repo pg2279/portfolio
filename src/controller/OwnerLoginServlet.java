@@ -48,9 +48,9 @@ public class OwnerLoginServlet extends HttpServlet {
 		boolean islogin = ownerloginlogic.ownerlogin(id, pass); //ログイン処理
 
 		if(islogin) { //ログイン成功時
+			String ownerid = ownerloginlogic.selectownerid(id);
 			HttpSession session = request.getSession();
-			session.setAttribute("islogin", islogin);
-			request.setAttribute("loginid", id);
+			session.setAttribute("islogin", ownerid);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/SendhomeServlet");
 			dispatcher.forward(request, response);
 		}

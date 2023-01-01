@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Field;
 import model.FieldCreateLogic;
-import model.FieldDeleteLogic;
-import model.FieldEditLogic;
 
 /**
  * Servlet implementation class FieldAdd
@@ -69,22 +67,19 @@ public class FieldCreateServlet extends HttpServlet {
 
 		//登録処理
 		if(action.equals("add")) {
-			FieldCreateLogic fieldcreatelogic = new FieldCreateLogic();
-			fieldcreatelogic.fieldadd(field);
-
+			FieldCreateLogic fieldaddlogic = new FieldCreateLogic();
+			fieldaddlogic.fieldadd(field);
 			response.sendRedirect("/SendhomeServlet"); //ホームに戻る時に登録情報更新されるためにサーブレットで処理を挟む
+
 		}else if(action.equals("edit")){
-			FieldEditLogic fieldeditlogic = new FieldEditLogic();
+			FieldCreateLogic fieldeditlogic = new FieldCreateLogic();
 			fieldeditlogic.fieldedit(field);
-
 			response.sendRedirect("/SendFieldStatusServlet"); //ページ更新でフィール詳細ページにリロードするためサーブレットで処理を挟む
-		}else if(action.equals("delete")) {
-			FieldDeleteLogic fielddelete = new FieldDeleteLogic();
-			fielddelete.fielddelete(fieldname, zip);
 
+		}else if(action.equals("delete")) {
+			FieldCreateLogic fielddelete = new FieldCreateLogic();
+			fielddelete.fielddelete(field);
 			response.sendRedirect("/SendhomeServlet"); //ホームに戻る時に登録情報更新されるためにサーブレットで処理を挟む
 		}
-
 	}
-
 }

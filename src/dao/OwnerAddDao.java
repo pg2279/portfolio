@@ -30,9 +30,9 @@ public class OwnerAddDao {
 			pstmt.setString(2, owner.getPass1());
 			pstmt.setString(3, owner.getMailaddress());
 			pstmt.setString(4, owner.getOwnername());
-			pstmt.setString(5, "0"); //初期フェール度数
+			pstmt.setInt(5, 0); //初期フェール度数
 			//オーナーidはデーターベースにて自動で割り当て
-			
+
 			//insert文実を行
 			int result = pstmt.executeUpdate();
 			if (result != 1) {

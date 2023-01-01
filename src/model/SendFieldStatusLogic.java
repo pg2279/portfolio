@@ -1,12 +1,16 @@
 package model;
 
+import dao.FieldStatusDao;
+
 public class SendFieldStatusLogic {
 
-	public Field sendfieldstatus() {
+	public Field sendfieldstatus(String id) {
 
-		//データーベース設計完了までこのまま
-		Field fieldstatus = null;
-		return fieldstatus;
+		FieldStatusDao fieldstatus = new FieldStatusDao();
+		Field field = new Field();
+		field = fieldstatus.findall(id);
+
+		return field;
 	}
 
 }

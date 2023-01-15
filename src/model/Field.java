@@ -23,12 +23,13 @@ public class Field implements Serializable {
 	private String bikou;
 	private String comment;
 	private String ownerid;
+	private String time;
 
 	public Field() {}
 	public Field(String fieldname, String zipString, String tell, String moyori, String ekikara, String kousokuic,
 			String rental, String sougebuss, String buss, String bussteikara, String yagai, String sinrin,
 			String indoor, String teireikai, String teikyubi, String ameyagai, String bikou, String comment,
-			String ownerid) {}
+			String ownerid, String time) {}
 
 	public String getFieldname() {return fieldname;}
 	public void setFieldname(String fieldname) {this.fieldname = fieldname;}
@@ -87,5 +88,7 @@ public class Field implements Serializable {
 	public String getOwnerid() {return ownerid;}
 	public void setOwnerid(String ownerid) {this.ownerid = ownerid;}
 
+	public String getTime() {return time;}
+	public void setTime(String time) {this.time = time;}
 }
 

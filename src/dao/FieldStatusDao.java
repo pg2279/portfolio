@@ -49,9 +49,11 @@ public class FieldStatusDao {
 				String bikou = rs.getString("bikou");
 				String comment = rs.getString("comment");
 				String ownerid = rs.getString("ownerid");
+				String time = rs.getString("time");
 
 				field = new Field(fieldname, zip, tell, moyorieki, ekikara, kousokuic, rental, sougebuss, buss,
-						bussteikara, yagai, sinrin, indoor, teireikai, teikyubi, ameyagai, bikou, comment, ownerid);
+						bussteikara, yagai, sinrin, indoor, teireikai, teikyubi, ameyagai, bikou, comment, ownerid,
+						time);
 			}
 		}catch (SQLException e){
 			e.printStackTrace();

@@ -25,14 +25,15 @@ public class FieldCreateDao {
 
 			//insert文の準備 フィールド作成時 fieldadd
 			String sqladd = "INSERT INTO field(name, zip, tell, moyorieki, ekikara, kousokuic, rental, sougebuss, buss,"
-					+ " bussteikara, yagai, sinrin, indoor, teireikai, teikyubi, ameyagai, bikou, comment, ownerid)"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ " bussteikara, yagai, sinrin, indoor, teireikai, teikyubi, ameyagai, bikou, comment, ownerid,"
+					+ "time)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			String sqladd2 = "UPDATE owner SET (filedint) = (?+1) WHERE owenerid=?";
 			//unpdate文の準備 フィールド編集時 fieldedit
 			String sqledit = "UPDATE field SET name=?, zip=?, tell=?, moyorieki=?, ekikara=?, kousokuic=?, rental=?, "
 					+ "sougebuss=?, buss=?, bussteikara=?, yagai=?, sinrin=?, indoor=?, teireikai=?, teikyubi=? ,"
-					+ "ameyagai=?, bikou=?, comment=? WHERE ownerid=?";
-			String sqldelete = "DELETE FROM field WHERE name=? AND zip=?"; //nameとzipは他のsql文と同じ順番だから?は今回の場合使いまわしでよい
+					+ "ameyagai=?, bikou=?, comment=?, time=? WHERE ownerid=?";
+			String sqldelete = "DELETE FROM field WHERE name=? AND zip=? And ownerid=?"; //nameとzipは他のsql文と同じ順番だから?は今回の場合使いまわしでよい
 			String sqldelete2 = "UPDATE owner SET (filedint) = (?-1) WHERE ownerid=?";
 			if(menu == 0) {
 				pstmt = conn.prepareStatement(sqladd);
@@ -44,7 +45,7 @@ public class FieldCreateDao {
 				pstmt2 = conn.prepareStatement(sqldelete2);
 			}
 			//insert文の?の値をを設定
-			pstmt.setString(1, field.getFieldname());
+			pstmt.setString(1, field.getFieldname()); //コード量を短くすることができるけど可読性を高めるために敢えて短くしない
 			pstmt.setString(2, field.getZip());
 			pstmt.setString(3, field.getTell());
 			pstmt.setString(4, field.getMoyorieki());
@@ -62,9 +63,12 @@ public class FieldCreateDao {
 			pstmt.setString(16, field.getAmeyagai());
 			pstmt.setString(17, field.getBikou());
 			pstmt.setString(18, field.getComment());
-			pstmt.setString(19, field.getOwnerid());
+			pstmt.setString(19, field.getTime());
+			pstmt.setString(20, field.getOwnerid());
 			pstmt2.setString(1, "fieldint");
-			pstmt2.setString(2, owner.getOwnerid());//insert文実を行
+			pstmt2.setString(2, owner.getOwnerid());
+			if(menu == 2) {pstmt.setString(3, field.getOwnerid());}
+
 			int result = pstmt.executeUpdate(); //追加された行数が代入される、もし追加された行数が違う場合は不具合
 			if (result != 1) {
 				//ここにjspでエラーメッセージ表示処理をする（検討中）

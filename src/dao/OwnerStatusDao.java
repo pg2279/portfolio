@@ -73,6 +73,21 @@ public class OwnerStatusDao {
 		return status;
 	}
 
+	public List<Object> senddelete(String id) {
+		List<Object> deletestatus = new ArrayList<>(); //最初の要素にfieldint(int型)2番目の要素にdelete承認情報(String型)
+		deletestatus.add(selectfieldint(id));
+		try(Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/example","sa","")){
+			String sql = "SELECT userid, pass1 FROM owner WHERE ownerid = " + id;
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				deletestatus.add(rs.getString("userid"));
+				deletestatus.add(rs.getString("pass1"));
+				}
+			}catch(SQLException e) {e.printStackTrace();}
+		return deletestatus;
+	}
+
 	public String selectownerid(String id) {
 		String ownerid = null;
 		try(Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/example","sa","")){
@@ -82,6 +97,18 @@ public class OwnerStatusDao {
 			while(rs.next()) {ownerid = rs.getString("ownerid");}
 			}catch(SQLException e) {e.printStackTrace();}
 		return ownerid;
+	}
+
+	public int selectfieldint(String id) {
+		String fieldint = null;
+		try(Connection conn = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/example","sa","")){
+			String sql = "SELECT field FROM owner WHERE loginid =" + id;
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {fieldint = rs.getString("fieldint");}
+			}catch(SQLException e) {e.printStackTrace();}
+		int fieldintreturn = Integer.parseInt(fieldint);
+		return fieldintreturn;
 	}
 
 	public Owner findall(String id) {

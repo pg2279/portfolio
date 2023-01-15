@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Field;
+
 /**
  * Servlet implementation class ListenerServlet
  */
@@ -28,7 +30,22 @@ public class ListenerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("UTF-8");
+		String state = request.getParameter("state"); //都道府県
+		String rental = request.getParameter("rental");
+		String sougebuss = request.getParameter("sougebuss");
+		String yagai = request.getParameter("yagai");
+		String sinrin = request.getParameter("sinrin");
+		String indoor = request.getParameter("inddoor");
+		String teireikai = request.getParameter("teireikai");
+		String teikyubi = request.getParameter("teikyubi"); //営業曜日
+		String ameyagai = request.getParameter("ameyagai");
+		String time = request.getParameter("time");
+
+		Field field = new Field("", state, "", "", "", "", rental, sougebuss, "", "", yagai, sinrin, indoor,
+				teireikai, teikyubi, ameyagai, "", "", "", time);
+		FieldStatusDao fiel
+
 	}
 
 	/**

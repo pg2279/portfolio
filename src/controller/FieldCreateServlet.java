@@ -59,27 +59,30 @@ public class FieldCreateServlet extends HttpServlet {
 		String bikou = request.getParameter("bikou");
 		String comment = request.getParameter("comment");
 		String ownerid = request.getParameter("ownerid");
+		String time = request.getParameter("time");
 
 		String action = request.getParameter("action"); //操作項目を決めるアクション属性
 
 		Field field = new Field(fieldname, zip, tell, moyorieki, ekikara, kousokuic, rental, sougebuss, buss,
-				bussteikara, yagai, sinrin, indoor, teireikai, teikyubi, ameyagai, bikou, comment, ownerid);
+				bussteikara, yagai, sinrin, indoor, teireikai, teikyubi, ameyagai, bikou, comment, ownerid, time);
 
 		//登録処理
 		if(action.equals("add")) {
 			FieldCreateLogic fieldaddlogic = new FieldCreateLogic();
 			fieldaddlogic.fieldadd(field);
-			response.sendRedirect("/SendhomeServlet"); //ホームに戻る時に登録情報更新されるためにサーブレットで処理を挟む
-
+			request.setAttribute("menu", "add");
+			//ホームに戻る時に登録情報更新されるためにサーブレットで処理を挟む
 		}else if(action.equals("edit")){
 			FieldCreateLogic fieldeditlogic = new FieldCreateLogic();
 			fieldeditlogic.fieldedit(field);
-			response.sendRedirect("/SendFieldStatusServlet"); //ページ更新でフィール詳細ページにリロードするためサーブレットで処理を挟む
-
+			request.setAttribute("menu", "edit");
+			//ページ更新でフィール詳細ページにリロードするためサーブレットで処理を挟む
 		}else if(action.equals("delete")) {
 			FieldCreateLogic fielddelete = new FieldCreateLogic();
 			fielddelete.fielddelete(field);
-			response.sendRedirect("/SendhomeServlet"); //ホームに戻る時に登録情報更新されるためにサーブレットで処理を挟む
+			request.setAttribute("menu", "delete");
+			//ホームに戻る時に登録情報更新されるためにサーブレットで処理を挟む
 		}
+		response.sendRedirect("/SendPageServlet"); //←更新する為に挟む処理
 	}
 }
